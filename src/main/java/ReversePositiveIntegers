@@ -1,0 +1,45 @@
+/**
+ * @author Spencer Thomas <srt4@uw.edu>
+ */
+public class ReversePositiveIntegers {
+    
+    private static final int[][] TEST_CASES = new int[][] {
+      /* all negative numbers        */ { -1, -2, -3, -4, -5 },
+      /* all positive numebrs        */ { 1, 2, 3, 4, 5 },
+      /* bookended with negative     */ { -1, 2, 3, 4, -1 },
+      /* normal case, two partitions */ { 1, 2, 3, -1, 4, 5, 6 }
+    };
+  
+    public static void main(String[] args) {
+        for (int[] testCase : TEST_CASES) {
+           System.out.println("Input: " + Arrays.toString(testCase) + ", output: " + 
+              Arrays.toString(new ReversePositiveIntegers().reversePositiveNumbers(testCase));
+        }
+    }
+
+    public int[] reversePositiveNumbers(int[] numbers) {
+        int begin = 0;
+        int end = 0;
+        for (int i = 0; i < numbers.length; i++) {
+            if (numbers[i] > 0) {
+                end = i;
+            }
+            else {
+                reverseRange(numbers, begin, end);
+                begin = end = i;
+            }
+        }
+        reverseRange(numbers, begin, end);
+        return numbers;
+    }
+
+    private void reverseRange(int[] array, int start, int end) {
+        int i = 0;
+        for (int j = start; j >= end; j--) {
+            int temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+        }
+    }
+
+}
